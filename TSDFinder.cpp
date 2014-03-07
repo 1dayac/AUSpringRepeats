@@ -123,7 +123,7 @@ void alignOverlapTSD(std::string left, std::string right, std::ofstream& out, si
     if(matrix[xPos][yPos] == matrix[xPos - 1][yPos] + 1)
     {
       answer1.push_back(left[xPos - 1]);
-      answer2.push_back('-');
+ //     answer2.push_back('-');
       xPos--;
       numberOfLetterOfA++;
       continue;
@@ -131,7 +131,7 @@ void alignOverlapTSD(std::string left, std::string right, std::ofstream& out, si
 
     if(matrix[xPos][yPos] == matrix[xPos][yPos - 1] + 1)
     {
-      answer1.push_back('-');
+ //     answer1.push_back('-');
       answer2.push_back(right[yPos - 1]);
       yPos--;
       numberOfLetterOfB++;
