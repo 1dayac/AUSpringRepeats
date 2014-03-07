@@ -36,7 +36,10 @@ void fillAnnotation(std::string& filename)
     for(int i = 0; i < 3; ++i)
       in >> temp;
     in >> familyOfRepeat;
-    mapOfAnnotation[startPos] = familyOfRepeat;
+    std::string classOfRepeat = "";
+    in >> classOfRepeat;
+    if(classOfRepeat.substr(0, 4) == "LINE" || classOfRepeat.substr(0, 4) == "SINE" || classOfRepeat.substr(0, 3) == "LTR")
+      mapOfAnnotation[startPos] = familyOfRepeat;
     std::getline(in, temp);
   }
 }
@@ -139,8 +142,11 @@ void alignOverlapTSD(std::string left, std::string right, std::ofstream& out, si
     return;
   std::reverse(answer1.begin(), answer1.end());
   std::reverse(answer2.begin(), answer2.end());
-  out << answer1 << " " << answer2 << " " << mapOfAnnotation[startOfRepeat + 1] << std::endl;
-  typesAndTSD[mapOfAnnotation[startOfRepeat + 1]].push_back(answer1);
+  if(mapOfAnnotation.find(startOfRepeat + 1) != mapOfAnnotation.end())
+  {
+    out << answer1 << " " << answer2 << " " << mapOfAnnotation[startOfRepeat + 1] << std::endl;
+    typesAndTSD[mapOfAnnotation[startOfRepeat + 1]].push_back(answer1);
+  }
 }
 
 
