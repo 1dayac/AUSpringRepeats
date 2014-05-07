@@ -18,32 +18,43 @@ Poly-A tail is important characteristic of Non-LTR retrotransposons. It could im
 PolyAStatist works with output files of Repeat masker and outputs percentage of repeats with poly-A tails to total number of repeats. \\
 
 \begin{Large}
-Compilation: \\*
+Requirements: \\*
 \end{Large}
-To compile and run PolyAStatist you need g++ 4.8 or Microsoft Visual C++ compiler with с++11 support.  \\*
+g++ 4.8 (or higher) or Microsoft Visual C++ compiler with с++11 support.  \\*
+Windows or Unix OS\\*
+
+\begin{Large}
+Installation: \\*
+\end{Large}
+Just run make from command line \\*
 
 \begin{Large}
 Usage: \\*
 \end{Large}
-To use PolyAStatist you should pass list of files to process. You could pass as many files as you want, but files should go in pares, where the first one is .fa.out file is fasta file and .fa.newout file from RepeatMasker output on that fasta file. \\*
+To use PolyAStatist you should pass it list of files to process. You could pass as many files as you want, but files should go in pairs, where the first one is RepeatMasker output file (.out extension) and second is corresponding fasta file (.fa or .fasta extension). \\*
 
 \begin{Large}
 Examples of correct usage: \\*
 \end{Large}
-user@ace:\~/cst\_v\_1\_1\$ ./PolyAStatist.exe chr1.fa.out chr1.fa chr2.fa.out chr2.fa chr3.fa.out  chr3.fa chr4.fa.out chr4.fa \\*
-user@ace:\~/cst\_v\_1\_1\$ ./PolyAStatist.exe chrX.fa.out chrX.fa \\*
+./PolyAStatist chr1.fa.out chr1.fa chr2.fa.out chr2.fa chr3.fa.out  chr3.fa chr4.fa.out chr4.fa \\*
+./PolyAStatist chrX.fa.out chrX.fa \\*
 
 \begin{Large}
 Examples of incorrect usage: \\*
 \end{Large}
-user@ace:\~/cst\_v\_1\_1\$ ./PolyAStatist.exe chr1.fa chr1.fa.out  chr2.fa chr2.fa.out chr3.fa chr3.fa.out  chr4.fa chr4.fa.out \\*
-user@ace:\~/cst\_v\_1\_1\$ ./PolyAStatist.exe chr1.fa.out chr2.fa.out chr3.fa.out chr4.fa.out chr1.fa chr2.fa chr3.fa chr4.fa \\*
+./PolyAStatist chr1.fa chr1.fa.out  chr2.fa chr2.fa.out chr3.fa chr3.fa.out  chr4.fa chr4.fa.out \\*
+./PolyAStatist chr1.fa.out chr2.fa.out chr3.fa.out chr4.fa.out chr1.fa chr2.fa chr3.fa chr4.fa \\*
 
 You could find full information about repeat masker usage at \href{http://www.repeatmasker.org/}{http://www.repeatmasker.org/}  \\*
 
 But it is enough to run repeat masker like this: \\* 
 RepeatMasker myFile.fasta \\*
-Dont forget about species flag - it improves sensitivity a lot. The only importatant this is - PolyAStatistic works only with files, generated from single sequence. \\*
+Dont forget about species flag - it improves sensitivity a lot. 
+
+\begin{Large}
+ATTENTION \\*
+\end{Large}
+PolyAStatistic works only with files, generated from single sequence. \\*
 
 \begin{Large}
 Workflow \\*
@@ -72,6 +83,9 @@ L1PB3;888;672;0.7567\\*
 L1HS;1560;1344;0.8615\\*
 ...\\*
 
+\begin{Large}
+Feedback\\*
+\end{Large}
 For complaints and suggestions please write to 1dayac@gmail.com to Meleshko Dmitrii.\\*
 you could find source code at \href{https://github.com/1dayac/AUSpringRepeats}{https://github.com/1dayac/AUSpringRepeats}
 \end{document}

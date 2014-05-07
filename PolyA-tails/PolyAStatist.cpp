@@ -219,18 +219,43 @@ void printPolyAStat(std::ofstream& out2, std::string& nameOfChrom, int num)
   }
 }
 
+void usage()
+{
+  std::cerr << "Usage:" << std::endl;
+  std::cerr << "To use PolyAStatist you should pass list of files to process.You could pass as many files as you want, but files should go in pares, where the first one is .fa.out file is fasta file and .fa.newout file from RepeatMasker output on that fasta file." << std::endl;
+  std::cerr << "Examples of correct usage :" << std::endl;
+  std::cerr << "PolyAStatist.exe chr1.fa.out chr1.fa chr2.fa.out chr2.fa chr3.fa.out chr3.fa chr4.fa.out chr4.fa" << std::endl;
+  std::cerr << "PolyAStatist.exe chrX.fa.out chrX.fa" << std::endl;
+  std::cerr << "Examples of incorrect usage :" << std::endl;
+  std::cerr << "PolyAStatist.exe chr1.fa chr1.fa.out chr2.fa chr2.fa.out chr3.fa chr3.fa.out chr4.fa chr4.fa.out" << std::endl;
+  std::cerr << "PolyAStatist.exe chr1.fa.out chr2.fa.out chr3.fa.out chr4.fa.out chr1.fa chr2.fa chr3.fa chr4.fa" << std::endl;
+}
+
 int main(int argc, char* argv[])
 {
-  if (argc % 2 != 1)
+  if (argc % 2 != 1 || argv[1] == "-h" || argv[1] == "--help" || argc == 1)
   {
-    std::cout << "Wrong args";
-    return 0;
+    usage();
+    return 1;
   }
+  std::cerr << "Starting to process files..." << std::endl;
   std::string nameOfChrom = "";
   for (int i = 0; i < argc - 1; i = i + 2)
   {
     std::string filenameOfAnot = argv[1];
+    if (filenameOfAnot.length() < 8 || filenameOfAnot.substr(filenameOfAnot.length() - 8, 7) != ".fa.out")
+    {
+      std::cerr << filenameOfAnot << " seems to be not a Repeat masker output file. Please, provide .fa.out file" << std::endl;
+      return 1;
+    }
+
     std::string filenameOfGenome = argv[2];
+    if (filenameOfAnot.length() < 4 || (filenameOfGenome.substr(filenameOfGenome.length() - 4, 3) != ".fa" && filenameOfGenome.substr(filenameOfGenome.length() - 7, 6) != ".fasta"))
+    {
+      std::cerr << filenameOfGenome << " seems to be not a fasta file. Please, provide .fa of .fasta file" << std::endl;
+      return 1;
+    }
+
     std::ifstream inGenome(filenameOfGenome);
     std::string genome = "";
     inGenome >> nameOfChrom;
@@ -240,9 +265,10 @@ int main(int argc, char* argv[])
     genome.clear();
     mapOfAnnotation.clear();
   }
-
+  std::cerr << "Output will be written to polyA.out" << std::endl;
   std::ofstream out2("polyA.out");
-  printPolyAStat(out2, nameOfChrom, argc/2);
+  printPolyAStat(out2, nameOfChrom, argc / 2);
+  std::cerr << "Done! Exiting..." << std::endl;
   return 0;
 }
 
